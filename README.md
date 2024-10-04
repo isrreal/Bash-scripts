@@ -50,7 +50,3 @@ This repository contains a collection of useful Bash scripts for system administ
    ```
 
 Feel free to customize the scripts according to your needs.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
