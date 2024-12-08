@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Autor:  Israel Souza
+# Data de Criação: 09/05/2024
+# Modificado em: 09/07/2024
+# Descrição: Faz o backup dos arquivos do diretorio /home
+# Uso: backup-script
+
+echo "Olá, ${USER^}. Eu irei fazer um backup do seu diretório /home: $HOME."
+
+tar -cvf ~/Documents/curso-bash/backup "$(date +%d-%m-%Y_%H-%M-%S)".tar ~/* 2>/dev/null
+
+exit 0

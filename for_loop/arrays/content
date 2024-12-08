@@ -1,0 +1,92 @@
+arrays em bash podem ter vários tipos de dados juntos
+
+-----------------------------------------------------
+
+como criar um array de números?
+
+    numbers=(1 2 3 4)
+    
+    no caso, não tem vírgula, separa-se com espaços
+
+
+----------------------
+
+Como funciona a indexação de arrays?
+    
+    $numbers retorna o primeiro elemento do array
+
+    para indexar normalmente:
+        
+         ${numbers[posição_válida]}
+
+    usa-se ${numbers[@]} para retornar todos os valores do array
+
+
+
+*** SLICE
+    o código abaixo retorna os elementos na posição 1 até a 2
+    ${numbers[@]:1:2}
+    
+
+-----------------------------------------------------------------------
+
+Adicionando elementos no array
+
+    numbers+=(elemento)
+    
+
+
+-----------------------------------------------------------------------
+
+Removendo elementos do array
+
+    unset numbers[indice]
+
+    bom, cuidado ao remover, pois o elemento desaparecerá e 
+    um resultado um tanto quanto inesperado pode ocorrer. 
+    
+    No caso, para acessar somente os índices restantes, faça:
+
+        ${!numbers[@]} 
+
+    não precisa ter o [@], necessariamente, nesse caso, é só pra retornar
+    todos os índices válidos
+
+
+-----------------------------------------------------------------------
+
+COMANDO readarray
+
+    Comando que lê um arquivo qualquer até um caractere específico
+    e 'povoa' o array. POR PADRÃO, É UM \n
+
+
+
+    '${days[@]@Q}' retorna cada elemento do array com seu caractere invisível
+
+
+    readarray -t array
+
+    a flag '-t' tira esse caractere invisível dos elementso do array
+
+
+
+
+
+
+Como colocar todos os elementos do diretório no array 'files'?
+
+    ls | readarray files
+
+    isso não funcionaria pois cada comando do pipeline funciona no seu
+    próprio subshell. para contornar isso, deve-se usar um conceito chamado
+    'substituição de processo'. Basicamente isso transforma o stdout do 
+    processo em um arquivo inaginário:
+
+    readarray files < <(ls)
+
+    isso funciona!
+
+
+
+

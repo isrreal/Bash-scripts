@@ -1,0 +1,135 @@
+*** Parâmetros posicionais ***
+
+comando pos_arg1 pos_arg2 ... pos_arg10 pos_arg11 ...
+
+
+---> Para acessar os seus valores, usar:
+
+	$1 $2 ... ${10} ${11} ...
+
+
+a partir do décimo parâmetro posicional, as chaves são necessárias.
+
+
+==================================================================
+
+
+*** Parâmetros Especiais ***
+
+    Diferentemente dos parâmetros posicionais comuns,
+    os parâmetros não podem ser modificados
+
+    
+$# ----> retorna a quantidade de parâmetros posicionais na entrada
+$0 ----> retorna o nome do arquivo.
+
+    esses dois são bons para criar mensagens de erro! 
+
+
+    
+
+
+$@ ----> expande todos os argumentos posicionais como entidades diferentes,
+           separadas por um delimitador(word split baseado no espaço em branco):
+
+    "israel souza ferreira" como argumento, seria interpretado 
+    
+    como israel souza ferreira (três entidades diferentes)
+           
+           
+           
+    
+"$@" ----> retorna os argumentos em aspas como se fossem um só (não tem word split):
+
+            "israel souza ferreira"  
+
+
+
+$* ----> mesma coisa do $@
+
+
+
+"$*" ----> expande todos os argumentos e os separa com o caractere delimitador IFS.
+
+	argumentos de entrada: israel souza ferreira
+            
+    caso IFS=','
+
+    israel,souza,ferreira 
+
+
+
+IFS=',' -----> define o caractere delimitador do string e field split (nesse caso, é ',')
+
+  
+===================================================================
+
+
+
+*** Comando read *** 
+
+
+    Por definição, as entradas do usuário são guardas na variável 
+    $REPLY!
+
+    read -p "prompt" argumento
+
+------ A flag "-p" faz um prompt aparecer:
+
+    read -p "digite um numero" numero
+
+
+
+------ É possível fazer um "timer" para a entrada do usuário (em segundos)
+
+    read -t tempo_em_segundos
+
+        
+
+------ Caso queira deixar a entrada invisível, utilizar a flag "-s"
+
+	read -s  
+
+------ Para esperar uma entrada com EXATAMETE 'N' caracteres, usar a flag "-N"
+
+	read -N
+	
+		
+==================================================================
+
+
+*** Comando select ***
+    
+    Ele lista as possíveis opções de uma variável (pré-definido) e faz um comando específico
+    para cada uma.  Ele roda em um loop infinito.
+
+   exemplo:
+
+        select day in mon tue wed thu fir sat sun; do
+
+            comando
+
+        done 
+
+
+
+    ------- Para colocar um prompt, ajuste a variável PS3 no script
+
+        A variável PS3 é a string padrão pro prompt do comando select!
+
+            
+
+        PS3="What is the day of the week?"
+
+        select day in mon tue wed thu fir sat sun; do
+                                                           
+             comando
+                                                           
+        done 
+
+
+        Isso aparece no lugar de "leggen-assis@ZIMBURANAS-LAPTOP:", 
+        por exemplom pois substitui a string padrão do prompt
+
+
+======================================================================
